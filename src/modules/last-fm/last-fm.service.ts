@@ -1,4 +1,3 @@
-import { HttpService } from '@nestjs/axios';
 import {
   BadRequestException,
   Injectable,
@@ -12,13 +11,8 @@ import { ITopartists } from './interfaces/top-aritists.interface';
 import { ITopTracks } from './interfaces/top-tracks.interface';
 @Injectable()
 export class LastFmService {
-  private _config: ILastFmConfig;
-  private readonly _baseUrl = 'http://ws.audioscrobbler.com/2.0';
   private _axiosInstance: AxiosInstance;
-  constructor(
-    private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
-  ) {
+  constructor(private readonly configService: ConfigService) {
     const { baseUrl, apiKey } = this.configService.get<ILastFmConfig>('lastFm');
 
     const instance = axios.create({

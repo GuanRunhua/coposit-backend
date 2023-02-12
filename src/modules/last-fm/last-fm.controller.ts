@@ -1,5 +1,5 @@
-import { Controller, Get, Param, Query, Res } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+
 import { LastFmService } from './last-fm.service';
 
 @Controller('last-fm')
@@ -10,10 +10,9 @@ export class LastFmController {
   async getTopArtists(
     @Query() query: { page: number; pageSize: number; country: string },
   ) {
-    console.log(query);
     const { pageSize, country, page } = query;
     const result = await this.service.getTopArtists(country, pageSize, page);
-    console.log(result);
+
     return result;
     return { data: result.artist, total: result['@attr'].total };
   }
@@ -29,7 +28,6 @@ export class LastFmController {
       pageSize,
       page,
     );
-    console.log(mbid, query, result.track.length);
     return result;
   }
 }
